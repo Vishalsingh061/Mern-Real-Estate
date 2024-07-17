@@ -10,8 +10,6 @@ import path from "path";
 
 dotenv.config();
 
-const port = process.env.PORT || 3000;
-
 mongoose
   .connect(process.env.MONGO)
   .then(() => {
@@ -36,8 +34,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.listen(port, () => {
-  console.log("Server is runnig on port ${port}!!!");
+app.listen(3000, () => {
+  console.log("Server is runnig on port 3000!!!");
 });
 
 app.use("/api/user", userRouter);
