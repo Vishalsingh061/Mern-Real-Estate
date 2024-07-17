@@ -6,6 +6,7 @@ import authRouter from "./routes/authRoute.js";
 import listingRouter from "./routes/listingRoute.js";
 import cookieParser from "cookie-parser";
 import path from "path";
+const port = process.env.PORT || 3000;
 
 dotenv.config();
 
@@ -33,8 +34,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.listen(3000, () => {
-  console.log("Server is runnig on port 3000!!!");
+app.listen(port, () => {
+  console.log("Server is runnig on port ${port}!!!");
 });
 
 app.use("/api/user", userRouter);
