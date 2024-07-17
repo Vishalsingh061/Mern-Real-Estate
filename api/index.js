@@ -6,9 +6,11 @@ import authRouter from "./routes/authRoute.js";
 import listingRouter from "./routes/listingRoute.js";
 import cookieParser from "cookie-parser";
 import path from "path";
-const port = process.env.PORT || 3000;
+
 
 dotenv.config();
+
+const port = process.env.PORT || 3000;
 
 mongoose
   .connect(process.env.MONGO)
