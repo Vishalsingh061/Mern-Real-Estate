@@ -6,7 +6,8 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:3000",
+        target: "https://mern-real-estate-thbo.onrender.com",
+        changeOrigin: true,
         secure: false,
       },
     },
