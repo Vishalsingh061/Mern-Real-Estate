@@ -6,7 +6,7 @@ import authRouter from "./routes/authRoute.js";
 import listingRouter from "./routes/listingRoute.js";
 import cookieParser from "cookie-parser";
 import path from "path";
-
+import cors from "cors";
 
 dotenv.config();
 
@@ -23,20 +23,14 @@ const __dirname = path.resolve();
 
 const app = express();
 
+app.use(cors({
+  origin: 'https://mern-real-estate-lime.vercel.app', // Allow requests from your frontend domain
+  methods: 'GET,PUT,POST,DELETE',
+  allowedHeaders: 'Content-Type,Authorization'
+}));
+
 app.use(express.json());
-
 app.use(cookieParser());
-
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // Allow requests from any origin
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
-});
-
-app.listen(3000, () => {
-  console.log("Server is runnig on port 3000!!!");
-});
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
@@ -48,8 +42,7 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
 
-// middleware
-
+// Error handling middleware
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error!";
@@ -59,4 +52,8 @@ app.use((err, req, res, next) => {
     statusCode,
     message,
   });
+});
+
+app.listen(3000, () => {
+  console.log("Server is running on port 3000!!!");
 });
